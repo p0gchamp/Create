@@ -222,6 +222,7 @@ public class BlazeBurnerTileEntity extends SmartTileEntity {
 		TransactionCallback.onSuccess(ctx, () -> {
 			activeFuel = finalNewFuel;
 			remainingBurnTime = finalNewBurnTime;
+			updateBlockState();
 		});
 
 		if (level.isClientSide) {
