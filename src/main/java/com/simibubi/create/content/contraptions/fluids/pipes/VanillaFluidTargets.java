@@ -31,20 +31,20 @@ public class VanillaFluidTargets {
 	public static FluidStack drainBlock(Level level, BlockPos pos, BlockState state, TransactionContext ctx) {
 		if (state.hasProperty(BlockStateProperties.LEVEL_HONEY) && state.getValue(LEVEL_HONEY) >= 5) {
 			((LevelExtensions) level).updateSnapshots(ctx);
-			level.setBlock(pos, state.setValue(LEVEL_HONEY, 0), 3);
+			TransactionCallback.onSuccess(ctx, () -> level.setBlock(pos, state.setValue(LEVEL_HONEY, 0), 3));
 			return new FluidStack(AllFluids.HONEY.get()
 				.getSource(), FluidConstants.BOTTLE);
 		}
 
 		if (state.getBlock() == Blocks.LAVA_CAULDRON) {
 			((LevelExtensions) level).updateSnapshots(ctx);
-			level.setBlock(pos, Blocks.CAULDRON.defaultBlockState(), 3);
+			TransactionCallback.onSuccess(ctx, () -> level.setBlock(pos, Blocks.CAULDRON.defaultBlockState(), 3));
 			return new FluidStack(Fluids.LAVA, FluidConstants.BUCKET);
 		}
 
 		if (state.getBlock() == Blocks.WATER_CAULDRON) {
 			((LevelExtensions) level).updateSnapshots(ctx);
-			level.setBlock(pos, Blocks.CAULDRON.defaultBlockState(), 3);
+			TransactionCallback.onSuccess(ctx, () -> level.setBlock(pos, Blocks.CAULDRON.defaultBlockState(), 3));
 			return new FluidStack(Fluids.WATER, FluidConstants.BUCKET);
 		}
 

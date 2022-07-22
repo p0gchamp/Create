@@ -165,15 +165,16 @@ public class OpenEndedPipe extends FlowSource {
 		FluidStack stack = new FluidStack(fluidState.getType(), FluidConstants.BUCKET);
 
 		if (FluidHelper.isWater(stack.getFluid()))
-			AdvancementBehaviour.tryAward(world, pos, AllAdvancements.WATER_SUPPLY);
+			TransactionCallback.onSuccess(ctx, () -> AdvancementBehaviour.tryAward(world, pos, AllAdvancements.WATER_SUPPLY));
 
 		if (waterlog) {
 			world.setBlock(outputPos, state.setValue(WATERLOGGED, false), 3);
 			TransactionCallback.onSuccess(ctx, () -> world.scheduleTick(outputPos, Fluids.WATER, 1));
 			return stack;
 		}
-		world.setBlock(outputPos, fluidState.createLegacyBlock()
-			.setValue(LiquidBlock.LEVEL, 14), 3);
+		TransactionCallback.onSuccess(ctx, () -> world.setBlock(outputPos, fluidState.createLegacyBlock()
+				.setValue(LiquidBlock.LEVEL, 14), 3));
+;
 		return stack;
 	}
 
@@ -338,6 +339,7 @@ public class OpenEndedPipe extends FlowSource {
 			if (!super.isResourceBlank()) return super.getResource();
 			try (Transaction t = TransferUtil.getTransaction()) {
 				FluidStack stack = removeFluidFromSpace(t);
+				t.abort();
 				return stack.getType();
 			}
 		}
