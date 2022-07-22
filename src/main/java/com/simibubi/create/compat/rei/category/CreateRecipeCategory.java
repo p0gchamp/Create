@@ -48,7 +48,7 @@ public abstract class CreateRecipeCategory<T extends Recipe<?>> implements Displ
 	public final List<Supplier<List<Recipe<?>>>> recipes = new ArrayList<>();
 	public final List<Supplier<ItemStack>> recipeCatalysts = new ArrayList<>();
 
-	protected CategoryIdentifier uid;
+	protected CategoryIdentifier<CreateDisplay<T>> uid;
 	protected String name;
 	private Renderer icon;
 	private int width, height;
@@ -65,7 +65,7 @@ public abstract class CreateRecipeCategory<T extends Recipe<?>> implements Displ
 	}
 
 	@Override
-	public CategoryIdentifier getCategoryIdentifier() {
+	public CategoryIdentifier<CreateDisplay<T>> getCategoryIdentifier() {
 		return uid;
 	}
 

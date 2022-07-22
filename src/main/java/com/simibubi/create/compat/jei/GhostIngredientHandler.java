@@ -11,6 +11,7 @@ import com.simibubi.create.foundation.gui.container.GhostItemContainer;
 import com.simibubi.create.foundation.gui.container.GhostItemSubmitPacket;
 import com.simibubi.create.foundation.networking.AllPackets;
 
+import io.github.fabricators_of_create.porting_lib.mixin.client.accessor.AbstractContainerScreenAccessor;
 import mezz.jei.api.gui.handlers.IGhostIngredientHandler;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.renderer.Rect2i;
@@ -64,7 +65,8 @@ public class GhostIngredientHandler<T extends GhostItemContainer<?>>
 			this.slotIndex = slotIndex;
 			this.isAttributeFilter = isAttributeFilter;
 			Slot slot = gui.getMenu().slots.get(slotIndex + 36);
-			this.area = new Rect2i(gui.getGuiLeft() + slot.x, gui.getGuiTop() + slot.y, 16, 16);
+			AbstractContainerScreenAccessor access = (AbstractContainerScreenAccessor) gui;
+			this.area = new Rect2i(access.port_lib$getGuiLeft() + slot.x, access.port_lib$getGuiTop() + slot.y, 16, 16);
 		}
 
 		@Override

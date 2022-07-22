@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import net.minecraft.core.Registry;
+
 import org.jetbrains.annotations.NotNull;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -75,9 +77,8 @@ public class SequencedAssemblyCategory extends CreateRecipeCategory<SequencedAss
 	}
 
 	private SequencedAssemblySubCategory getSubCategory(SequencedRecipe<?> sequencedRecipe) {
-		return subCategories.computeIfAbsent(sequencedRecipe.getRecipe()
-			.getSerializer()
-			.getRegistryName(),
+		return subCategories.computeIfAbsent(Registry.RECIPE_SERIALIZER
+			.getKey(sequencedRecipe.getRecipe().getSerializer()),
 			rl -> sequencedRecipe.getAsAssemblyRecipe()
 				.getJEISubCategory()
 				.get()

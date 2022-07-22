@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import io.github.fabricators_of_create.porting_lib.util.FluidStack;
+import mezz.jei.api.fabric.constants.FabricTypes;
+
 import org.apache.commons.lang3.mutable.MutableInt;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -20,7 +23,6 @@ import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.Pair;
 
-import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.IFocusGroup;
@@ -28,7 +30,6 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.fluids.FluidStack;
 
 @ParametersAreNonnullByDefault
 public class BasinCategory extends CreateRecipeCategory<BasinRecipe> {
@@ -66,7 +67,7 @@ public class BasinCategory extends CreateRecipeCategory<BasinRecipe> {
 			builder
 					.addSlot(RecipeIngredientRole.INPUT, 17 + xOffset + (i % 3) * 19, 51 - (i / 3) * 19)
 					.setBackground(getRenderedSlot(), -1, -1)
-					.addIngredients(ForgeTypes.FLUID_STACK, withImprovedVisibility(fluidIngredient.getMatchingFluidStacks()))
+					.addIngredients(FabricTypes.FLUID_STACK, withImprovedVisibility(fluidIngredient.getMatchingFluidStacks()))
 					.addTooltipCallback(addFluidTooltip(fluidIngredient.getRequiredAmount()));
 			i++;
 		}
@@ -93,7 +94,7 @@ public class BasinCategory extends CreateRecipeCategory<BasinRecipe> {
 			builder
 					.addSlot(RecipeIngredientRole.OUTPUT, xPosition, yPosition)
 					.setBackground(getRenderedSlot(), -1, -1)
-					.addIngredient(ForgeTypes.FLUID_STACK, withImprovedVisibility(fluidResult))
+					.addIngredient(FabricTypes.FLUID_STACK, withImprovedVisibility(fluidResult))
 					.addTooltipCallback(addFluidTooltip(fluidResult.getAmount()));
 			i++;
 		}

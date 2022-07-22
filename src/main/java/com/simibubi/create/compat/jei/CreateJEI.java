@@ -74,7 +74,6 @@ import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.fabric.constants.FabricTypes;
-import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
@@ -92,11 +91,10 @@ import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.item.crafting.SmokingRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.crafting.IShapedRecipe;
-import net.minecraftforge.fml.ModList;
 
 @JeiPlugin
 @SuppressWarnings("unused")
@@ -175,7 +173,7 @@ public class CreateJEI implements IModPlugin {
 
 				autoShapeless = builder(BasinRecipe.class)
 						.enableWhen(c -> c.allowShapelessInMixer)
-						.addAllRecipesIf(r -> r instanceof CraftingRecipe && !(r instanceof IShapedRecipe<?>)
+						.addAllRecipesIf(r -> r instanceof CraftingRecipe && !(r instanceof ShapedRecipe)
 										&& r.getIngredients()
 										.size() > 1
 										&& !MechanicalPressTileEntity.canCompress(r) && !AllRecipeTypes.shouldIgnoreInAutomation(r),
@@ -282,12 +280,12 @@ public class CreateJEI implements IModPlugin {
 
 				autoShaped = builder(CraftingRecipe.class)
 						.enableWhen(c -> c.allowRegularCraftingInCrafter)
-						.addAllRecipesIf(r -> r instanceof CraftingRecipe && !(r instanceof IShapedRecipe<?>)
+						.addAllRecipesIf(r -> r instanceof CraftingRecipe && !(r instanceof ShapedRecipe)
 								&& r.getIngredients()
 								.size() == 1
 								&& !AllRecipeTypes.shouldIgnoreInAutomation(r))
 						.addTypedRecipesIf(() -> RecipeType.CRAFTING,
-								recipe -> recipe instanceof IShapedRecipe<?> && !AllRecipeTypes.shouldIgnoreInAutomation(recipe))
+								recipe -> recipe instanceof ShapedRecipe && !AllRecipeTypes.shouldIgnoreInAutomation(recipe))
 						.catalyst(AllBlocks.MECHANICAL_CRAFTER::get)
 						.itemIcon(AllBlocks.MECHANICAL_CRAFTER.get())
 						.emptyBackground(177, 107)

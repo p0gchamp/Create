@@ -1,4 +1,4 @@
-package com.simibubi.create.compat.jei;
+package com.simibubi.create.compat.rei;
 
 import java.util.function.Supplier;
 
