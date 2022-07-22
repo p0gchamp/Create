@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.compat.rei.category.BlockCuttingCategory.CondensedBlockCuttingRecipe;
 import com.simibubi.create.compat.rei.category.animations.AnimatedSaw;
 import com.simibubi.create.compat.rei.display.CreateDisplay;
@@ -16,7 +15,6 @@ import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -26,8 +24,8 @@ public class BlockCuttingCategory extends CreateRecipeCategory<CondensedBlockCut
 
 	private AnimatedSaw saw = new AnimatedSaw();
 
-	public BlockCuttingCategory(Item symbol) {
-		super(doubleItemIcon(AllBlocks.MECHANICAL_SAW, () -> symbol), emptyBackground(177, 75)); // Items.STONE_BRICK_STAIRS
+	public BlockCuttingCategory(Info<CondensedBlockCuttingRecipe> info) {
+		super(info);
 	}
 
 	@Override

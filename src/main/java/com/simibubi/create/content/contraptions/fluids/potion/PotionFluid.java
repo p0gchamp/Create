@@ -68,6 +68,7 @@ public class PotionFluid extends VirtualFluid {
 		REGULAR, SPLASH, LINGERING;
 	}
 
+	// TODO: PORT
 	public static class PotionFluidAttributes extends FluidAttributes {
 
 		public PotionFluidAttributes(Builder builder, Fluid fluid) {

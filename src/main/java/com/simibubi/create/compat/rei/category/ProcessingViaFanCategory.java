@@ -15,7 +15,6 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.utility.Lang;
 
 import me.shedaniel.math.Point;
-import me.shedaniel.rei.api.client.gui.Renderer;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.world.item.ItemStack;
@@ -25,12 +24,8 @@ public abstract class ProcessingViaFanCategory<T extends Recipe<?>> extends Crea
 
 	protected static final int SCALE = 24;
 
-	public ProcessingViaFanCategory(Renderer icon) {
-		this(178, icon);
-	}
-
-	public ProcessingViaFanCategory(int width, Renderer icon) {
-		super(icon, emptyBackground(width, 76));
+	public ProcessingViaFanCategory(Info<T> info) {
+		super(info);
 	}
 
 	public static Supplier<ItemStack> getFan(String name) {
@@ -92,12 +87,8 @@ public abstract class ProcessingViaFanCategory<T extends Recipe<?>> extends Crea
 
 	public static abstract class MultiOutput<T extends ProcessingRecipe<?>> extends ProcessingViaFanCategory<T> {
 
-		public MultiOutput(Renderer icon) {
-			super(icon);
-		}
-
-		public MultiOutput(int width, Renderer icon) {
-			super(width, icon);
+		public MultiOutput(Info<T> info) {
+			super(info);
 		}
 
 		@Override

@@ -40,9 +40,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 
-public abstract class CreateRecipeCategory<R extends Recipe<?>> implements DisplayCategory<CreateDisplay<R>> {
+public abstract class CreateRecipeCategory<T extends Recipe<?>> implements DisplayCategory<CreateDisplay<T>> {
 
 	public final List<Supplier<List<Recipe<?>>>> recipes = new ArrayList<>();
 	public final List<Supplier<ItemStack>> recipeCatalysts = new ArrayList<>();
@@ -52,8 +53,8 @@ public abstract class CreateRecipeCategory<R extends Recipe<?>> implements Displ
 	private Renderer icon;
 	private int width, height;
 
-	public CreateRecipeCategory(Renderer icon, EmptyBackground background) {
-		this.icon = icon;
+	public CreateRecipeCategory(Info<T> info) {
+		this.icon = info.icon();
 		this.width = background.getWidth();
 		this.height = background.getHeight();
 	}
@@ -79,7 +80,7 @@ public abstract class CreateRecipeCategory<R extends Recipe<?>> implements Displ
 	}
 
 	@Override
-	public int getDisplayWidth(CreateDisplay<R> display) {
+	public int getDisplayWidth(CreateDisplay<T> display) {
 		return width;
 	}
 
@@ -232,16 +233,16 @@ public abstract class CreateRecipeCategory<R extends Recipe<?>> implements Displ
 		return new Point(x, y);
 	}
 
-	public void addWidgets(CreateDisplay<R> display, List<Widget> ingredients, Point origin) {
+	public void addWidgets(CreateDisplay<T> display, List<Widget> ingredients, Point origin) {
 
 	}
 
-	public void addWidgets(CreateDisplay<R> display, List<Widget> ingredients, Point origin, Rectangle bounds) {
+	public void addWidgets(CreateDisplay<T> display, List<Widget> ingredients, Point origin, Rectangle bounds) {
 
 	}
 
 	@Override
-	public List<Widget> setupDisplay(CreateDisplay<R> display, Rectangle bounds) {
+	public List<Widget> setupDisplay(CreateDisplay<T> display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(Widgets.createDrawableWidget((helper, poseStack, mouseX, mouseY, partialTick) -> {
@@ -256,8 +257,14 @@ public abstract class CreateRecipeCategory<R extends Recipe<?>> implements Displ
 		return widgets;
 	}
 
-	public void draw(R recipe, PoseStack matrixStack, double mouseX, double mouseY) {}
+	public void draw(T recipe, PoseStack matrixStack, double mouseX, double mouseY) {}
 
-	public void draw(R recipe, CreateDisplay<R> display, PoseStack matrixStack, double mouseX, double mouseY) {}
+	public void draw(T recipe, CreateDisplay<T> display, PoseStack matrixStack, double mouseX, double mouseY) {}
 
+	public record Info<T extends Recipe<?>>(RecipeType<T> recipeType, Component title, Renderer icon, Supplier<List<T>> recipes, List<Supplier<? extends ItemStack>> catalysts) {
+	}
+
+	public interface Factory<T extends Recipe<?>> {
+		CreateRecipeCategory<T> create(CreateRecipeCategory.Info<T> info);
+	}
 }

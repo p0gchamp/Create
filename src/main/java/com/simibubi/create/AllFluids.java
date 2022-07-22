@@ -7,6 +7,7 @@ import com.simibubi.create.content.contraptions.fluids.VirtualFluid;
 import com.simibubi.create.content.contraptions.fluids.potion.PotionFluid;
 import com.simibubi.create.content.contraptions.fluids.potion.PotionFluid.BottleType;
 import com.simibubi.create.content.contraptions.fluids.potion.PotionFluidHandler;
+import com.simibubi.create.content.contraptions.fluids.potion.PotionFluid.PotionFluidAttributes;
 import com.simibubi.create.content.palettes.AllPaletteStoneTypes;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.utility.NBTHelper;
@@ -54,7 +55,7 @@ public class AllFluids {
 	private static final CreateRegistrate REGISTRATE = Create.registrate();
 
 	public static final FluidEntry<PotionFluid> POTION =
-			REGISTRATE.virtualFluid("potion", /*PotionFluidAttributes::new, */PotionFluid::new)
+			REGISTRATE.virtualFluid("potion", PotionFluidAttributes::new, PotionFluid::new)
 					.lang(f -> "fluid.create.potion", "Potion")
 					.onRegister(potion -> {
 						Fluid still = potion.getSource();

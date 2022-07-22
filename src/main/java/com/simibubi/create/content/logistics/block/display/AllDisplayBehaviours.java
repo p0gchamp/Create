@@ -108,7 +108,7 @@ public class AllDisplayBehaviours {
 	//
 
 	public static List<DisplaySource> sourcesOf(Block block) {
-		return SOURCES_BY_BLOCK.getOrDefault(block.getRegistryName(), Collections.emptyList());
+		return SOURCES_BY_BLOCK.getOrDefault(block, Collections.emptyList());
 	}
 
 	public static List<DisplaySource> sourcesOf(BlockState state) {

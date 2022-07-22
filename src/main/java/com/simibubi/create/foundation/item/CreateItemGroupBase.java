@@ -12,10 +12,10 @@ import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.Registry;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -49,16 +49,14 @@ public abstract class CreateItemGroupBase extends CreativeModeTab {
 
 	@Environment(EnvType.CLIENT)
 	public void addItems(NonNullList<ItemStack> items, boolean specialItems) {
-		Minecraft mc = Minecraft.getInstance();
-		ItemRenderer itemRenderer = mc.getItemRenderer();
-		ClientLevel world = mc.level;
+		ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
 		for (RegistryEntry<? extends Item> entry : getItems()) {
 			Item item = entry.get();
 			if (item instanceof BlockItem)
 				continue;
 			ItemStack stack = new ItemStack(item);
-			BakedModel model = itemRenderer.getModel(stack, world, null, 0);
+			BakedModel model = itemRenderer.getModel(stack, null, null, 0);
 			if (model.isGui3d() != specialItems)
 				continue;
 			item.fillItemCategory(this, items);
@@ -68,7 +66,7 @@ public abstract class CreateItemGroupBase extends CreativeModeTab {
 	protected Collection<RegistryEntry<Block>> getBlocks() {
 		return getSections().stream()
 			.flatMap(s -> Create.registrate()
-				.getAll(s, Block.class)
+				.getAll(s, Registry.BLOCK_REGISTRY)
 				.stream())
 			.collect(Collectors.toList());
 	}
@@ -76,7 +74,7 @@ public abstract class CreateItemGroupBase extends CreativeModeTab {
 	protected Collection<RegistryEntry<Item>> getItems() {
 		return getSections().stream()
 			.flatMap(s -> Create.registrate()
-				.getAll(s, Item.class)
+				.getAll(s, Registry.ITEM_REGISTRY)
 				.stream())
 			.collect(Collectors.toList());
 	}

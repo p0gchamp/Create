@@ -3,7 +3,6 @@ package com.simibubi.create.compat.rei.category;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.compat.rei.category.animations.AnimatedBlazeBurner;
 import com.simibubi.create.compat.rei.category.animations.AnimatedMixer;
 import com.simibubi.create.content.contraptions.processing.BasinRecipe;
@@ -21,24 +20,23 @@ public class MixingCategory extends BasinCategory {
 	MixingType type;
 
 	enum MixingType {
-		AUTO_SHAPELESS, MIXING, AUTO_BREWING
+		MIXING, AUTO_SHAPELESS, AUTO_BREWING
 	}
 
-	public static MixingCategory autoShapeless() {
-		return new MixingCategory(MixingType.AUTO_SHAPELESS, Items.CRAFTING_TABLE, 90);
+	public static MixingCategory standard(Info<BasinRecipe> info) {
+		return new MixingCategory(info, MixingType.MIXING);
 	}
 
-	public static MixingCategory standard() {
-		return new MixingCategory(MixingType.MIXING, AllBlocks.BASIN.get(), 108);
+	public static MixingCategory autoShapeless(Info<BasinRecipe> info) {
+		return new MixingCategory(info, MixingType.AUTO_SHAPELESS);
 	}
 
-	public static MixingCategory autoBrewing() {
-		return new MixingCategory(MixingType.AUTO_BREWING, Blocks.BREWING_STAND, 108);
+	public static MixingCategory autoBrewing(Info<BasinRecipe> info) {
+		return new MixingCategory(info, MixingType.AUTO_BREWING);
 	}
 
-	protected MixingCategory(MixingType type, ItemLike secondaryItem, int height) {
-		super(type != MixingType.AUTO_SHAPELESS, doubleItemIcon(AllBlocks.MECHANICAL_MIXER, () -> secondaryItem),
-			emptyBackground(177, height));
+	protected MixingCategory(Info<BasinRecipe> info, MixingType type) {
+		super(info, type != MixingType.AUTO_SHAPELESS);
 		this.type = type;
 	}
 

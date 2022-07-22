@@ -67,7 +67,6 @@ public class DoubleItemIcon implements Renderer {
 		matrixStack.popPose();
 
 		matrixStack.popPose();
-		RenderSystem.enableBlend();
 	}
 
 	@Override

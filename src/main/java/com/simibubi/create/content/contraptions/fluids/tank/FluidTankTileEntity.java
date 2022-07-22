@@ -205,6 +205,8 @@ public class FluidTankTileEntity extends SmartTileEntity implements IHaveGoggleI
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
 	public FluidTankTileEntity getControllerTE() {
 		if (isController())
 			return this;

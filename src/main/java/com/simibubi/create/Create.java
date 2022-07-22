@@ -59,7 +59,7 @@ public class Create implements ModInitializer {
 
 	public static final String ID = "create";
 	public static final String NAME = "Create";
-	public static final String VERSION = "0.5a";
+	public static final String VERSION = "0.5c";
 
 	public static final Logger LOGGER = LogManager.getLogger();
 

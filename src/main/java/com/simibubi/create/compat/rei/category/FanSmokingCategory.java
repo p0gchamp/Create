@@ -3,19 +3,17 @@ package com.simibubi.create.compat.rei.category;
 import org.jetbrains.annotations.NotNull;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.AllItems;
 import com.simibubi.create.compat.rei.category.animations.AnimatedKinetics;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.element.GuiGameElement;
 
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.SmokingRecipe;
 import net.minecraft.world.level.block.Blocks;
 
 public class FanSmokingCategory extends ProcessingViaFanCategory<SmokingRecipe> {
 
-	public FanSmokingCategory() {
-		super(doubleItemIcon(AllItems.PROPELLER, () -> Items.CAMPFIRE));
+	public FanSmokingCategory(Info<SmokingRecipe> info) {
+		super(info);
 	}
 
 	@Override

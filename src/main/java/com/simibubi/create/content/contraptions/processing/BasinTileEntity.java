@@ -78,6 +78,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class BasinTileEntity extends SmartTileEntity implements IHaveGoggleInformation, FluidTransferable, ItemTransferable {
 
+	private boolean needsUpdate; // fabric: need to delay to avoid doing stuff mid-transaction, causing a crash
 	private boolean areFluidsMoving;
 	LerpedFloat ingredientRotationSpeed;
 	LerpedFloat ingredientRotation;
@@ -241,7 +242,7 @@ public class BasinTileEntity extends SmartTileEntity implements IHaveGoggleInfor
 
 	@Override
 	public void notifyUpdate() {
-		super.notifyUpdate();
+		this.needsUpdate = true;
 	}
 
 	@Override
@@ -317,6 +318,10 @@ public class BasinTileEntity extends SmartTileEntity implements IHaveGoggleInfor
 	@Override
 	public void tick() {
 		super.tick();
+		if (needsUpdate) {
+			needsUpdate = false;
+			super.notifyUpdate();
+		}
 		if (level.isClientSide) {
 			createFluidParticles();
 			tickVisualizedOutputs();

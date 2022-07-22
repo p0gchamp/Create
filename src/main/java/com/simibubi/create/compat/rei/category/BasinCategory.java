@@ -38,8 +38,8 @@ public class BasinCategory extends CreateRecipeCategory<BasinRecipe> {
 
 	private boolean needsHeating;
 
-	public BasinCategory(boolean needsHeating, Renderer icon, EmptyBackground background) {
-		super(icon, background);
+	public BasinCategory(Info<BasinRecipe> info, boolean needsHeating) {
+		super(info);
 		this.needsHeating = needsHeating;
 	}
 

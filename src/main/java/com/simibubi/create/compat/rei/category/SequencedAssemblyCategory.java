@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jetbrains.annotations.Nullable;
+
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.AllItems;
-import com.simibubi.create.compat.rei.EmptyBackground;
 import com.simibubi.create.compat.rei.category.sequencedAssembly.SequencedAssemblySubCategory;
 import com.simibubi.create.compat.rei.display.CreateDisplay;
 import com.simibubi.create.content.contraptions.itemAssembly.SequencedAssemblyRecipe;
@@ -17,7 +17,6 @@ import com.simibubi.create.content.contraptions.itemAssembly.SequencedRecipe;
 import com.simibubi.create.foundation.fluid.FluidIngredient;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.AllIcons;
-
 import com.simibubi.create.foundation.utility.Lang;
 
 import me.shedaniel.math.Point;
@@ -29,7 +28,6 @@ import me.shedaniel.rei.api.client.gui.widgets.WidgetWithBounds;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.util.ClientEntryStacks;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -41,14 +39,12 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import org.jetbrains.annotations.Nullable;
-
 public class SequencedAssemblyCategory extends CreateRecipeCategory<SequencedAssemblyRecipe> {
 
 	Map<ResourceLocation, SequencedAssemblySubCategory> subCategories = new HashMap<>();
 
-	public SequencedAssemblyCategory() {
-		super(itemIcon(AllItems.PRECISION_MECHANISM), new EmptyBackground(180, 120));
+	public SequencedAssemblyCategory(Info<SequencedAssemblyRecipe> info) {
+		super(info);
 	}
 
 	@Override

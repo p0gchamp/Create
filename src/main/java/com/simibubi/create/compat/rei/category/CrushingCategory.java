@@ -3,8 +3,6 @@ package com.simibubi.create.compat.rei.category;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.simibubi.create.AllBlocks;
-import com.simibubi.create.AllItems;
 import com.simibubi.create.compat.rei.category.animations.AnimatedCrushingWheels;
 import com.simibubi.create.compat.rei.display.CreateDisplay;
 import com.simibubi.create.content.contraptions.components.crusher.AbstractCrushingRecipe;
@@ -23,8 +21,8 @@ import net.minecraft.network.chat.Component;
 
 public class CrushingCategory extends CreateRecipeCategory<AbstractCrushingRecipe> {
 
-	public CrushingCategory() {
-		super(doubleItemIcon(AllBlocks.CRUSHING_WHEEL, AllItems.CRUSHED_GOLD), emptyBackground(177, 110));
+	public CrushingCategory(Info<AbstractCrushingRecipe> info) {
+		super(info);
 	}
 
 	@Override

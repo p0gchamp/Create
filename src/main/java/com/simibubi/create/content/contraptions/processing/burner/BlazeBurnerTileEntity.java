@@ -222,21 +222,18 @@ public class BlazeBurnerTileEntity extends SmartTileEntity {
 		TransactionCallback.onSuccess(ctx, () -> {
 			activeFuel = finalNewFuel;
 			remainingBurnTime = finalNewBurnTime;
+			if (level.isClientSide) {
+				spawnParticleBurst(activeFuel == FuelType.SPECIAL);
+				return;
+			}
+			HeatLevel prev = getHeatLevelFromBlock();
+			playSound();
 			updateBlockState();
+
+			if (prev != getHeatLevelFromBlock())
+				level.playSound(null, worldPosition, SoundEvents.BLAZE_AMBIENT, SoundSource.BLOCKS,
+						.125f + level.random.nextFloat() * .125f, 1.15f - level.random.nextFloat() * .25f);
 		});
-
-		if (level.isClientSide) {
-			spawnParticleBurst(activeFuel == FuelType.SPECIAL);
-			return true;
-		}
-
-		HeatLevel prev = getHeatLevelFromBlock();
-		playSound();
-		updateBlockState();
-
-		if (prev != getHeatLevelFromBlock())
-			level.playSound(null, worldPosition, SoundEvents.BLAZE_AMBIENT, SoundSource.BLOCKS,
-				.125f + level.random.nextFloat() * .125f, 1.15f - level.random.nextFloat() * .25f);
 
 		return true;
 	}

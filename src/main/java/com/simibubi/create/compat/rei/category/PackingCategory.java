@@ -2,6 +2,7 @@ package com.simibubi.create.compat.rei.category;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllBlocks;
+import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.rei.category.animations.AnimatedBlazeBurner;
 import com.simibubi.create.compat.rei.category.animations.AnimatedPress;
 import com.simibubi.create.compat.rei.display.CreateDisplay;
@@ -30,17 +31,16 @@ public class PackingCategory extends BasinCategory {
 		AUTO_SQUARE, COMPACTING;
 	}
 
-	public static PackingCategory standard() {
-		return new PackingCategory(PackingType.COMPACTING, AllBlocks.BASIN.get(), 108);
+	public static PackingCategory standard(CreateRecipeCategory.Info<BasinRecipe> info) {
+		return new PackingCategory(info, PackingType.COMPACTING);
 	}
 
-	public static PackingCategory autoSquare() {
-		return new PackingCategory(PackingType.AUTO_SQUARE, Blocks.CRAFTING_TABLE, 105);
+	public static PackingCategory autoSquare(CreateRecipeCategory.Info<BasinRecipe> info) {
+		return new PackingCategory(info, PackingType.AUTO_SQUARE);
 	}
 
-	protected PackingCategory(PackingType type, ItemLike icon, int height) {
-		super(type != PackingType.AUTO_SQUARE, doubleItemIcon(AllBlocks.MECHANICAL_PRESS, () -> icon),
-			emptyBackground(177, height));
+	protected PackingCategory(CreateRecipeCategory.Info<BasinRecipe> info, PackingCategory.PackingType type) {
+		super(info, type != PackingType.AUTO_SQUARE);
 		this.type = type;
 	}
 
